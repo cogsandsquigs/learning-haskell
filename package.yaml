@@ -1,0 +1,17 @@
+name: learning-haskell
+version: 0.0.0
+synopsis: just me learning haskell
+description: just me learning haskell, tryna make a programming language in it i guess
+category: Development
+
+ghc-options: -Wall
+
+dependencies:
+  - base
+  - protolude
+
+executable:
+  main: Main.hs
+  source-dirs: app
+  dependencies:
+    - base
