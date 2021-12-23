@@ -7,13 +7,16 @@ data Expr
   = Value Int
   | Add Expr Expr
   | Sub Expr Expr
+  | Mul Expr Expr
+  | Div Expr Expr
   deriving (Show)
 
 eval :: Expr -> Int
 eval (Value x) =  x
-eval (Add x y) = eval x + eval y
-eval (Sub x y) = eval x - eval y
-
+eval (Add x y) = Just (eval x + eval y)
+eval (Sub x y) = Just (eval x - eval y)
+eval (Mul x y) = Just (eval x * eval y)
+eval (Div x y) = eval x - eval y
 
 
 main :: IO ()
