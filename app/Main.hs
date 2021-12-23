@@ -11,13 +11,26 @@ data Expr
   | Div Expr Expr
   deriving (Show)
 
-eval :: Expr -> Int
-eval (Value x) =  x
-eval (Add x y) = Just (eval x + eval y)
-eval (Sub x y) = Just (eval x - eval y)
-eval (Mul x y) = Just (eval x * eval y)
-eval (Div x y) = eval x - eval y
-
+eval :: Expr -> Either String Int
+eval (Value x) = Right x
+eval (Add x y) = do
+  x' <- eval x
+  y' <- eval y
+  Right (x' + y')
+eval (Sub x y) = do
+  x' <- eval x
+  y' <- eval y
+  Right (x' - y')
+eval (Mul x y) = do
+  x' <- eval x
+  y' <- eval y
+  Right (x' * y')
+eval (Div x y) = do
+  x' <- eval x
+  y' <- eval y
+  if y' == 0
+    then Left "divide by zero error"
+    else Right (div x' y')
 
 main :: IO ()
-main = print (eval (Add (Value 10) (Sub (Value 5) (Value 20))))
+main = print (eval (Div (Value 1) (Value 0)))
