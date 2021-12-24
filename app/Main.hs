@@ -3,15 +3,15 @@ module Main where
 -- interpereter structure
 -- lexical analysis -> syntactical analysis -> ??? -> evaluation -> out
 
-data Expr
+data Expression
   = Value Int
-  | Add Expr Expr
-  | Sub Expr Expr
-  | Mul Expr Expr
-  | Div Expr Expr
+  | Add Expression Expression
+  | Sub Expression Expression
+  | Mul Expression Expression
+  | Div Expression Expression
   deriving (Show)
 
-eval :: Expr -> Either String Int
+eval :: Expression -> Either String Int
 eval (Value x) = Right x
 eval (Add x y) = do
   x' <- eval x
@@ -33,4 +33,11 @@ eval (Div x y) = do
     else Right (div x' y')
 
 main :: IO ()
-main = print (eval (Div (Value 1) (Value 0)))
+main =
+  print
+    ( eval
+        ( Div
+            (Value 1)
+            (Value 0)
+        )
+    )
