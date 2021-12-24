@@ -3,6 +3,8 @@ module Main where
 -- interpereter structure
 -- lexical analysis -> syntactical analysis -> ??? -> evaluation -> out
 
+data Definition = Constant String Expression | Mutable String Expression
+
 data Expression
   = Value Int
   | Add Expression Expression
